@@ -5,6 +5,7 @@ class Product{
         this.ownerId = ownerId
         this.imageUrl = imageUrl
         this.description = description
-
     }
 }
+
+export default Product
