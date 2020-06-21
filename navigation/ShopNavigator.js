@@ -7,8 +7,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ProductOverviewScreen from "../screen/shop/ProductsOverviewScreen";
 import ProductDetailScreen from "../screen/shop/ProductDetailScreen";
 
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
-
 import Colors from '../constants/Colors'
 
 const defaultScreenOptions = {
@@ -17,7 +15,7 @@ const defaultScreenOptions = {
     },
     headerTintColor: Colors.Primary,
     headerTitleStyle: {
-        fontFamily: 'proxima-nova-bold'
+        fontFamily:'proxima-nova-bold'
     }
 }
 

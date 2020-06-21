@@ -18,6 +18,7 @@ const ProductsOverviewScreen = ({ navigation }) => {
 
         return (
             <ProductItem
+                id={item.id}
                 title={item.title}
                 imageUrl={item.imageUrl}
                 price={item.price}

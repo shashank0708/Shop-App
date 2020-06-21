@@ -5,6 +5,7 @@ import BoldText from '../../components/tool/BoldText'
 import Text from '../../components/tool/Text'
 
 import Colors from '../../constants/Colors'
+import { SharedElement } from 'react-navigation-shared-element';
 
 const ProductDetailScreen = ({ navigation, route }) => {
     const { item, index } = route.params
@@ -13,7 +14,9 @@ const ProductDetailScreen = ({ navigation, route }) => {
             <View style={styles.contentContainer}>
                 <View style={styles.imageContainer}>
                     <TouchableNativeFeedback>
-                        <Image style={styles.image} source={{ uri: item.imageUrl }} />
+                        <SharedElement id={`item.${item.id}.photo`}>
+                            <Image style={styles.image} source={{ uri: item.imageUrl }} />
+                        </SharedElement>
                     </TouchableNativeFeedback>
                 </View>
                 <View style={styles.descriptionContainer}>
@@ -44,13 +47,18 @@ const styles = StyleSheet.create({
         margin: 30
     },
     imageContainer: {
+        shadowColor: 'black',
+        shadowOpacity: 0.26,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 8,
         width: '100%',
-        height: 400,
+        height: 300,
         backgroundColor: 'white',
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
-        elevation: 30,
-        overflow: 'hidden'
+        elevation: 20,
+        overflow: 'hidden',
+
     },
     price: {
         color: Colors.Accent,
