@@ -1,19 +1,23 @@
 import React from 'react'
 import { Platform } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import ProductOverviewScreen from "../screen/shop/ProductsOverviewScreen";
+import ProductDetailScreen from "../screen/shop/ProductDetailScreen";
+
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import Colors from '../constants/Colors'
 
 const defaultScreenOptions = {
     headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.Primary : 'white',
+        backgroundColor: 'white',
     },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.Primary,
+    headerTintColor: Colors.Primary,
     headerTitleStyle: {
-        fontWeight: 'bold',
+        fontFamily: 'proxima-nova-bold'
     }
 }
 
@@ -24,6 +28,7 @@ const ProductNavigator = () => {
         <ProductsStack.Navigator
             screenOptions={defaultScreenOptions}>
             <ProductsStack.Screen name='ProductOverview' component={ProductOverviewScreen} options={{ title: 'Shop' }} />
+            <ProductsStack.Screen name='ProductDetail' component={ProductDetailScreen} />
         </ProductsStack.Navigator>
     )
 }
