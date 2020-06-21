@@ -8,7 +8,7 @@ import Text from '../tool/Text'
 import IconButton from '../tool/IconButton'
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
-const ProductItem = ({imageUrl, price, title, onPress }) => {
+const ProductItem = ({imageUrl, price, title, onPress, onAddToCart }) => {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -26,7 +26,7 @@ const ProductItem = ({imageUrl, price, title, onPress }) => {
                     <Text numberOfLines={1} style={styles.text}>$ {price.toFixed(2)}</Text>
                 </View>
 
-                <IconButton ios={'ios-cart'} android={'md-cart'} size={23} color={'#fff'} />
+                <IconButton onPress={onAddToCart} ios={'ios-cart'} android={'md-cart'} size={23} color={'#fff'} />
 
             </View>
         </View>

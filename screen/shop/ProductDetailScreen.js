@@ -4,19 +4,28 @@ import { Platform, StyleSheet, View, Image, Butto, TouchableNativeFeedback, Butt
 import BoldText from '../../components/tool/BoldText'
 import Text from '../../components/tool/Text'
 
+import ProductItem from '../../components/shop/ProductItem'
+import * as cartAction from '../../store/actions/cart'
+
 import Colors from '../../constants/Colors'
-import { SharedElement } from 'react-navigation-shared-element';
+import { useDispatch } from 'react-redux';
 
 const ProductDetailScreen = ({ navigation, route }) => {
     const { item, index } = route.params
+    const dispatch = useDispatch()
+
+    const addToCartHandler = product => {
+        dispatch(cartAction.addToCart(product))
+    }
+
+    navigation.setOptions({ title: item.title })
+
     return (
         <View style={styles.screen}>
             <View style={styles.contentContainer}>
                 <View style={styles.imageContainer}>
                     <TouchableNativeFeedback>
-                        <SharedElement id={`item.${item.id}.photo`}>
-                            <Image style={styles.image} source={{ uri: item.imageUrl }} />
-                        </SharedElement>
+                        <Image style={styles.image} source={{ uri: item.imageUrl }} />
                     </TouchableNativeFeedback>
                 </View>
                 <View style={styles.descriptionContainer}>
@@ -26,7 +35,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <Button title={"Add to Cart"} color={Colors.Accent} />
+                <Button title={"Add to Cart"} color={Colors.Accent} onPress={addToCartHandler.bind(this, item)}/>
             </View>
         </View>
     )

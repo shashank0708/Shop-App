@@ -10,12 +10,14 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import productReducer from "./store/reducers/products";
+import cartReducer from "./store/reducers/cart";
 import ShopNavigator from "./navigation/ShopNavigator";
 
 enableScreens();
 
 const rootReducer = combineReducers({
-  products: productReducer
+  products: productReducer,
+  cart: cartReducer
 
 })
 
