@@ -1,7 +1,11 @@
-import React from 'react'
-import { FlatList, Text, StyleSheet } from 'react-native'
+import React, { useLayoutEffect } from 'react'
+import { FlatList, Text, StyleSheet, Platform } from 'react-native'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+
+import HeaderButton from '../../components/tool/HeaderButton'
 
 import { useSelector, useDispatch } from "react-redux";
+
 
 import ProductItem from '../../components/shop/ProductItem'
 import * as cartAction from '../../store/actions/cart'
@@ -33,6 +37,31 @@ const ProductsOverviewScreen = ({ navigation }) => {
             />
         )
     }
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item
+                        title="Menu"
+                        iconName={Platform.OS === 'ios' ? 'ios-menu' : 'md-menu'}
+                        onPress={() => {
+                            // Open Menu
+                        }} />
+                </HeaderButtons>
+            ),
+            headerRight: () => (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item
+                        title="Cart"
+                        iconName={Platform.OS === 'ios' ? 'ios-cart' : 'md-cart'}
+                        onPress={() => {
+                            navigation.navigate('Cart')
+                        }} />
+                </HeaderButtons>
+            )
+        });
+    })
 
     return (
         <FlatList data={products} renderItem={renderProductItem} />

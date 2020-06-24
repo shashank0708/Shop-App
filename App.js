@@ -1,17 +1,19 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { enableScreens } from 'react-native-screens';
 
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import logger from 'redux-logger'
 
 import productReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
 import ShopNavigator from "./navigation/ShopNavigator";
+import  Colors  from './constants/Colors';
 
 enableScreens();
 
@@ -44,6 +46,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <StatusBar backgroundColor={Colors.PrimaryLight} barStyle="light-content"/>
       <ShopNavigator />
     </Provider>
   );
