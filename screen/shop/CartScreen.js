@@ -1,11 +1,15 @@
 import React, { useLayoutEffect } from 'react'
-import { Image, FlatList, View, StyleSheet, Platform } from 'react-native'
+import { Image, FlatList, View, StyleSheet, Platform, Button } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
 import { useDispatch, useSelector } from 'react-redux'
 
 import HeaderButton from '../../components/tool/HeaderButton'
 import CartItem from '../../components/shop/CartItem'
+import BoldText from '../../components/tool/BoldText'
+import Text from '../../components/tool/Text'
+
+import Colors from '../../constants/Colors'
 
 import * as cartAction from '../../store/actions/cart'
 
@@ -29,10 +33,8 @@ const CartScreen = ({ navigation }) => {
     })
 
     const totalAmount = useSelector(state => state.cart.totalAmount.toFixed(2))
-    
-    console.log(totalAmount)
 
-    sort(cartItems , 'productId')
+    sort(cartItems, 'productId')
 
     const quantityChangedHandler = (action, product) => {
 
@@ -66,14 +68,45 @@ const CartScreen = ({ navigation }) => {
     })
 
     return (
-        <View>
-            <FlatList data={cartItems} renderItem={renderCartItem} />
+        <View style={styles.container}>
+            <View style={styles.listContainer}>
+                <FlatList data={cartItems} renderItem={renderCartItem} />
+            </View>
+            <View style={styles.finalContainer}>
+                <BoldText style={styles.bigText}>Total Amount : </BoldText>
+                <Text style={styles.totalAmountText}>$ {totalAmount}</Text>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
 
+    totalAmountText:{
+        color:Colors.Accent,
+        fontSize:17
+    },
+    bigText: {
+        fontSize: 20,
+        alignItems: 'center',
+        color: 'white',
+        marginEnd:10
+    },
+    container: {
+        flex: 1
+    },
+    listContainer: {
+        flex: 1
+    },
+    finalContainer: {
+        width: '100%',
+        height: '10%',
+        backgroundColor: Colors.Primary,
+        elevation: 20,
+        padding: 20,
+        flexDirection:'row',
+        alignItems:'center'
+    }
 })
 
 export default CartScreen

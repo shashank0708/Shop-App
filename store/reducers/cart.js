@@ -51,21 +51,16 @@ export default (state = initialState, action) => {
                 totalAmount: state.totalAmount - productToRemove.price
             }
 
-
         case DELETE_FROM_CART:
             const productToDelete = action.product
-            const cartItemToDelete = state.items[productToDelete.id]
+
             const temp = state.items
             delete temp[productToDelete.id]
 
-            if (state.items[productToDelete.id]) {
-                return {
-                    items: temp,
-                    totalAmount: state.totalAmount - cartItemToDelete.sum
-                }
+            return {
+                items: temp,
+                totalAmount: (state.totalAmount - productToDelete.price)
             }
-
-
 
         default:
             return state

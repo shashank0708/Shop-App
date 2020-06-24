@@ -29,7 +29,12 @@ const CartItem = ({ onValueChange, cartItem }) => {
                 <Text>Per product: $ {cartItem.productPrice.toFixed()}</Text>
                 <Text>Total : $ {cartItem.sum.toFixed(2)}</Text>
             </View>
-            <QuantityController style={styles.quantityController} initialValue={cartItem.quantity} onValueChange={valueChangeHandler} />
+            
+            <QuantityController
+                style={styles.quantityController}
+                initialValue={cartItem.quantity}
+                onValueChange={valueChangeHandler}
+            />
         </View>
     )
 }

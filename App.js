@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
 
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer,applyMiddleware(logger))
 
 const fetchFonts = () => {
   return Font.loadAsync({
