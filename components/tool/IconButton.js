@@ -1,13 +1,20 @@
 import React from 'react'
-import { TouchableWithoutFeedback, Platform, StyleSheet } from "react-native";
+import { Platform } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
+import HeaderButton from '../../components/tool/HeaderButton'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
-const IconButton = ({ios, android, size, color, onPress}) => {
+
+const IconButton = ({ ios, android, size, color, onPress }) => {
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
-            <Ionicons name={Platform.OS === 'ios' ? ios : android} size={size} color={color} />
-        </TouchableWithoutFeedback>
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+                title="Buy"
+                color={color}
+                size={size}
+                iconName={Platform.OS === 'ios' ? ios : android}
+                onPress={onPress} />
+        </HeaderButtons>
 
     )
 }

@@ -12,6 +12,7 @@ import logger from 'redux-logger'
 
 import productReducer from "./store/reducers/products";
 import cartReducer from "./store/reducers/cart";
+import ordersReducer from "./store/reducers/orders";
 import ShopNavigator from "./navigation/ShopNavigator";
 import  Colors  from './constants/Colors';
 
@@ -19,7 +20,8 @@ enableScreens();
 
 const rootReducer = combineReducers({
   products: productReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  orders:ordersReducer
 
 })
 

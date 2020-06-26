@@ -7,7 +7,7 @@ import BoldText from '../tool/BoldText'
 import QuantityController from './QuantityController'
 import { useSelector } from 'react-redux';
 
-const CartItem = ({ onValueChange, cartItem }) => {
+const CartItem = ({ onValueChange, cartItem, quantityEditable }) => {
 
     const products = useSelector(
         state =>
@@ -30,11 +30,12 @@ const CartItem = ({ onValueChange, cartItem }) => {
                 <Text>Total : $ {cartItem.sum.toFixed(2)}</Text>
             </View>
             
-            <QuantityController
-                style={styles.quantityController}
-                initialValue={cartItem.quantity}
-                onValueChange={valueChangeHandler}
-            />
+                <QuantityController
+                    style={styles.quantityController}
+                    initialValue={cartItem.quantity}
+                    onValueChange={valueChangeHandler}
+                    quantityEditable={quantityEditable}
+                />
         </View>
     )
 }

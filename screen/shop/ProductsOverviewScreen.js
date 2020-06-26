@@ -1,8 +1,10 @@
-import React, { useLayoutEffect } from 'react'
-import { FlatList, Text, StyleSheet, Platform } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
+import { FlatList, View, Platform } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
-
 import HeaderButton from '../../components/tool/HeaderButton'
+
+import Toast from 'react-native-simple-toast'
+
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,13 +12,20 @@ import { useSelector, useDispatch } from "react-redux";
 import ProductItem from '../../components/shop/ProductItem'
 import * as cartAction from '../../store/actions/cart'
 
+const showMessage = message => {
+    Toast.show(message)
+}
+
 
 const ProductsOverviewScreen = ({ navigation }) => {
+    const [showMenu, setShowMenu] = useState(false)
+
     const dispatch = useDispatch()
     const products = useSelector(state => state.products.availableProducts)
 
     const addToCartHandler = product => {
         dispatch(cartAction.addToCart(product))
+        showMessage('Item added to cart!')
     }
     const itemPressHandler = ({ item, index }) => {
         navigation.navigate('ProductDetail', { item, index })
@@ -46,7 +55,7 @@ const ProductsOverviewScreen = ({ navigation }) => {
                         title="Menu"
                         iconName={Platform.OS === 'ios' ? 'ios-menu' : 'md-menu'}
                         onPress={() => {
-                            // Open Menu
+                            navigation.openDrawer()
                         }} />
                 </HeaderButtons>
             ),
@@ -64,7 +73,9 @@ const ProductsOverviewScreen = ({ navigation }) => {
     })
 
     return (
-        <FlatList data={products} renderItem={renderProductItem} />
+        <View>
+            <FlatList data={products} renderItem={renderProductItem} />
+        </View>
     )
 }
 

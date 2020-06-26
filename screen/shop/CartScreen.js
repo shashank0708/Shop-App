@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react'
-import { Image, FlatList, View, StyleSheet, Platform, Button } from 'react-native'
+import {  Alert, FlatList, View, StyleSheet, Platform, Button } from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import Toast from 'react-native-simple-toast'
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,10 +9,10 @@ import HeaderButton from '../../components/tool/HeaderButton'
 import CartItem from '../../components/shop/CartItem'
 import BoldText from '../../components/tool/BoldText'
 import Text from '../../components/tool/Text'
-
 import Colors from '../../constants/Colors'
 
 import * as cartAction from '../../store/actions/cart'
+import * as ordersAction from '../../store/actions/orders'
 
 
 const CartScreen = ({ navigation }) => {
@@ -49,7 +50,7 @@ const CartScreen = ({ navigation }) => {
 
     const renderCartItem = ({ item }) => {
         return (
-            <CartItem onValueChange={quantityChangedHandler} cartItem={item} />
+            <CartItem onValueChange={quantityChangedHandler} cartItem={item} quantityEditable={true} />
         )
     }
 
@@ -61,6 +62,8 @@ const CartScreen = ({ navigation }) => {
                         title="Buy"
                         iconName={Platform.OS === 'ios' ? 'ios-done-all' : 'md-done-all'}
                         onPress={() => {
+                            dispatch(ordersAction.addOrder(cartItems, totalAmount))
+                            dispatch(cartAction.deleteAll()) 
                         }} />
                 </HeaderButtons>
             )
@@ -75,6 +78,7 @@ const CartScreen = ({ navigation }) => {
             <View style={styles.finalContainer}>
                 <BoldText style={styles.bigText}>Total Amount : </BoldText>
                 <Text style={styles.totalAmountText}>$ {totalAmount}</Text>
+                
             </View>
         </View>
     )
@@ -82,15 +86,15 @@ const CartScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 
-    totalAmountText:{
-        color:Colors.Accent,
-        fontSize:17
+    totalAmountText: {
+        color: Colors.Accent,
+        fontSize: 17
     },
     bigText: {
         fontSize: 20,
         alignItems: 'center',
         color: 'white',
-        marginEnd:10
+        marginEnd: 10
     },
     container: {
         flex: 1
@@ -104,8 +108,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Primary,
         elevation: 20,
         padding: 20,
-        flexDirection:'row',
-        alignItems:'center'
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })
 

@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DELETE_FROM_CART, REMOVE_FROM_CART } from "../actions/cart"
+import { ADD_TO_CART, DELETE_FROM_CART, REMOVE_FROM_CART, DELETE_ALL } from "../actions/cart"
 import CartItem from '../../models/cart-item'
 
 const initialState = {
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
             } else {
                 cartItem = new CartItem(Math.random().toString(), id, 1, price, title, price, imageUrl)
             }
-
+            
             const newState = {
                 items: { ...state.items, [addedProduct.id]: cartItem },
                 totalAmount: state.totalAmount + price
@@ -59,8 +59,11 @@ export default (state = initialState, action) => {
 
             return {
                 items: temp,
-                totalAmount: (state.totalAmount - productToDelete.price)
+                totalAmount: state.totalAmount === productToDelete.price ? 0.00 : (state.totalAmount - productToDelete.price)
             }
+
+        case DELETE_ALL:
+            return initialState
 
         default:
             return state

@@ -6,7 +6,7 @@ import BoldText from '../tool/BoldText'
 import Text from "../tool/Text";
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const QuantityController = ({ initialValue, onValueChange }) => {
+const QuantityController = ({ initialValue, onValueChange, quantityEditable }) => {
     const [count, setCount] = useState(initialValue)
 
     const updateCount = (action) => {
@@ -40,13 +40,17 @@ const QuantityController = ({ initialValue, onValueChange }) => {
 
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback style={styles.button} onPress={updateCount.bind(this, 'ADD')}>
-                <BoldText style={styles.buttonText}>+</BoldText>
-            </TouchableWithoutFeedback>
+            {quantityEditable &&
+                <TouchableWithoutFeedback style={styles.button} onPress={updateCount.bind(this, 'ADD')}>
+                    <BoldText style={styles.buttonText}>+</BoldText>
+                </TouchableWithoutFeedback>
+            }
             <Text style={styles.countText}>{count}</Text>
-            <TouchableWithoutFeedback style={styles.button} onPress={updateCount.bind(this, 'SUB')}>
-                <BoldText style={styles.buttonText}>-</BoldText>
-            </TouchableWithoutFeedback>
+            {quantityEditable &&
+                <TouchableWithoutFeedback style={styles.button} onPress={updateCount.bind(this, 'SUB')}>
+                    <BoldText style={styles.buttonText}>-</BoldText>
+                </TouchableWithoutFeedback>
+            }
         </View>
     )
 }
